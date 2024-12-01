@@ -1,9 +1,10 @@
+use core::str;
+use std::collections::HashMap;
+
 use aoc_runner_derive::aoc;
 use atoi::FromRadix10;
-use core::str;
-use memchr::memchr;
-use memchr::memmem;
-use std::collections::HashMap;
+use fxhash::FxHashMap;
+use memchr::{memchr, memmem};
 
 // starting with flamegraph
 fn parse_input(input: &str) -> (Vec<u32>, Vec<u32>) {
@@ -52,7 +53,7 @@ pub fn part1(input: &str) -> u32 {
 }
 
 fn compute_similarity_score(a_vec: &[u32], b_vec: &[u32]) -> u32 {
-    let mut freq_map = HashMap::new();
+    let mut freq_map = FxHashMap::default();
     for &num in b_vec {
         *freq_map.entry(num).or_insert(0) += 1;
     }
