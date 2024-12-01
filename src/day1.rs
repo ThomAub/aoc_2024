@@ -1,19 +1,9 @@
 use core::str;
-use std::collections::HashMap;
 
 use aoc_runner_derive::aoc;
 use atoi::FromRadix10;
 use fxhash::FxHashMap;
 use memchr::{memchr, memmem};
-
-// starting with flamegraph
-fn parse_input(input: &str) -> (Vec<u32>, Vec<u32>) {
-    input
-        .split('\n')
-        .filter_map(|s| s.split_once("   "))
-        .map(|(a, b)| (a.parse::<u32>().unwrap(), b.parse::<u32>().unwrap()))
-        .unzip()
-}
 
 fn parse_input_memchr(input: &str) -> (Vec<u32>, Vec<u32>) {
     let mut data = input[..].as_bytes();
@@ -47,13 +37,12 @@ fn compute_distance(a_vec: &[u32], b_vec: &[u32]) -> u32 {
 
 #[aoc(day1, part1, Chars)]
 pub fn part1(input: &str) -> u32 {
-    // let (a_vec, b_vec) = parse_input(input);
     let (a_vec, b_vec) = parse_input_memchr(input);
     compute_distance(&a_vec, &b_vec)
 }
 
 fn compute_similarity_score(a_vec: &[u32], b_vec: &[u32]) -> u32 {
-    let mut freq_map = FxHashMap::default();
+    let mut freq_map = FxHashMap::with_capacity_and_hasher(b_vec.len(), Default::default());
     for &num in b_vec {
         *freq_map.entry(num).or_insert(0) += 1;
     }
@@ -63,7 +52,6 @@ fn compute_similarity_score(a_vec: &[u32], b_vec: &[u32]) -> u32 {
 
 #[aoc(day1, part2)]
 pub fn part2(input: &str) -> u32 {
-    // let (a_vec, b_vec) = parse_input(input);
     let (a_vec, b_vec) = parse_input_memchr(input);
     compute_similarity_score(&a_vec, &b_vec)
 }
