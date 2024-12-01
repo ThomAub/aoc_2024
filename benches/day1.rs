@@ -1,5 +1,6 @@
 use aoc_2024::day1::{part1, part2};
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
+use codspeed_criterion::{black_box, criterion_group, criterion_main, Criterion};
+// use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use pprof::criterion::{Output, PProfProfiler};
 
 pub fn criterion_benchmark(c: &mut Criterion) {
