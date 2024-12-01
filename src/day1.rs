@@ -4,6 +4,7 @@ use aoc_runner_derive::aoc;
 use atoi::FromRadix10;
 use fxhash::FxHashMap;
 use memchr::{memchr, memmem};
+use rayon::slice::ParallelSliceMut;
 
 fn parse_input_memchr(input: &str) -> (Vec<u32>, Vec<u32>) {
     let mut data = input[..].as_bytes();
@@ -29,8 +30,8 @@ fn parse_input_memchr(input: &str) -> (Vec<u32>, Vec<u32>) {
 fn compute_distance(a_vec: &[u32], b_vec: &[u32]) -> u32 {
     let mut a_sorted = a_vec.to_vec();
     let mut b_sorted = b_vec.to_vec();
-    a_sorted.sort_unstable();
-    b_sorted.sort_unstable();
+    a_sorted.par_sort_unstable();
+    b_sorted.par_sort_unstable();
 
     a_sorted.iter().zip(b_sorted.iter()).map(|(a, b)| b.abs_diff(*a)).sum()
 }
