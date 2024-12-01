@@ -59,6 +59,13 @@ mod tests {
     }
 
     #[test]
+    fn sample2() {
+        let output = part2(INPUT);
+        let expected = 31;
+        assert_eq!(output, expected);
+    }
+
+    #[test]
     fn test_parse_input() {
         let input = INPUT;
         let expected_a_vec: Vec<u32> = vec![3, 4, 2, 1, 3, 3];
