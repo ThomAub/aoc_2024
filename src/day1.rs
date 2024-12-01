@@ -7,8 +7,8 @@ use memchr::{memchr, memmem};
 
 fn parse_input_memchr(input: &str) -> (Vec<u32>, Vec<u32>) {
     let mut data = input[..].as_bytes();
-    let mut a_vec = Vec::with_capacity(10_000);
-    let mut b_vec = Vec::with_capacity(10_000);
+    let mut a_vec = Vec::with_capacity(1_024);
+    let mut b_vec = Vec::with_capacity(1_024);
     let finder = memmem::Finder::new("   ");
     loop {
         let Some(separator) = finder.find(data) else {
@@ -40,7 +40,7 @@ pub fn part1(input: &str) -> u32 {
 }
 
 fn compute_similarity_score(a_vec: &[u32], b_vec: &[u32]) -> u32 {
-    let mut freq_map = FxHashMap::with_capacity_and_hasher(10_000, Default::default());
+    let mut freq_map = FxHashMap::with_capacity_and_hasher(1_024, Default::default());
     for &num in b_vec {
         *freq_map.entry(num).or_insert(0) += 1;
     }
