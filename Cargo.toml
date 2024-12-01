@@ -6,9 +6,39 @@ edition = "2021"
 [dependencies]
 aoc-runner = "0.3.0"
 aoc-runner-derive = "0.3.0"
+atoi = "2.0.0"
+fxhash = "0.2.1"
+memchr = "2.7.4"
 
 [dev-dependencies]
-criterion = { version = "2.7.2", package = "codspeed-criterion-compat" }
+codspeed-criterion = { version = "2.7.2", package = "codspeed-criterion-compat" }
+criterion = "0.5.1"
+pprof = { version = "0.13.0", default-features = false, features = [
+    "criterion",
+    "flamegraph",
+    "frame-pointer",
+] }
+
+[profile.release]
+codegen-units = 1
+lto = "fat"
+panic = "abort"
+strip = true
+
+[profile.bench]
+inherits = "release"
+debug = true
+strip = false
+
+[profile.profiling]
+inherits = "release"
+debug = true
+strip = false
+
+
+[[bin]]
+name = "aoc"
+path = "src/main.rs"
 
 [[bench]]
 name = "day1"
