@@ -3,7 +3,7 @@
 
 use aoc_2024::day1;
 
-fn main() -> () {
+fn main() {
     let input = include_str!("../input/2024/sample/day1.txt");
     let mut out1 = 0;
     let mut out2 = 0;

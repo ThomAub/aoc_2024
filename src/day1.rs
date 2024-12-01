@@ -56,6 +56,14 @@ pub fn part2(input: &str) -> u32 {
     compute_similarity_score(&a_vec, &b_vec)
 }
 
+fn _parse_input(input: &str) -> (Vec<u32>, Vec<u32>) {
+    input
+        .split('\n')
+        .filter_map(|s| s.split_once("   "))
+        .map(|(a, b)| (a.parse::<u32>().unwrap(), b.parse::<u32>().unwrap()))
+        .unzip()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -87,7 +95,15 @@ mod tests {
         let input = INPUT;
         let expected_a_vec: Vec<u32> = vec![3, 4, 2, 1, 3, 3];
         let expected_b_vec: Vec<u32> = vec![4, 3, 5, 3, 9, 3];
-        assert_eq!(parse_input(input), (expected_a_vec, expected_b_vec));
+        assert_eq!(_parse_input(input), (expected_a_vec, expected_b_vec));
+    }
+
+    #[test]
+    fn test_parse_input_memchr() {
+        let input = INPUT;
+        let expected_a_vec: Vec<u32> = vec![3, 4, 2, 1, 3, 3];
+        let expected_b_vec: Vec<u32> = vec![4, 3, 5, 3, 9, 3];
+        assert_eq!(parse_input_memchr(input), (expected_a_vec, expected_b_vec));
     }
 
     #[test]
