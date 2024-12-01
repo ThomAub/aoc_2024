@@ -26,19 +26,17 @@ fn parse_input_memchr(input: &str) -> (Vec<u32>, Vec<u32>) {
     (a_vec, b_vec)
 }
 
-fn compute_distance(a_vec: &[u32], b_vec: &[u32]) -> u32 {
-    let mut a_sorted = a_vec.to_vec();
-    let mut b_sorted = b_vec.to_vec();
-    a_sorted.sort_unstable();
-    b_sorted.sort_unstable();
+fn compute_distance(a_vec: &mut [u32], b_vec: &mut [u32]) -> u32 {
+    a_vec.sort_unstable();
+    b_vec.sort_unstable();
 
-    a_sorted.iter().zip(b_sorted.iter()).map(|(a, b)| b.abs_diff(*a)).sum()
+    a_vec.iter().zip(b_vec.iter()).map(|(a, b)| b.abs_diff(*a)).sum()
 }
 
 #[aoc(day1, part1, Chars)]
 pub fn part1(input: &str) -> u32 {
-    let (a_vec, b_vec) = parse_input_memchr(input);
-    compute_distance(&a_vec, &b_vec)
+    let (mut a_vec, mut b_vec) = parse_input_memchr(input);
+    compute_distance(&mut a_vec, &mut b_vec)
 }
 
 fn compute_similarity_score(a_vec: &[u32], b_vec: &[u32]) -> u32 {
@@ -108,9 +106,9 @@ mod tests {
 
     #[test]
     fn test_compute_distance() {
-        let a_vec: Vec<u32> = vec![3, 4, 2, 1, 3, 3];
-        let b_vec: Vec<u32> = vec![4, 3, 5, 3, 9, 3];
-        assert_eq!(compute_distance(&a_vec, &b_vec), 11);
+        let mut a_vec: Vec<u32> = vec![3, 4, 2, 1, 3, 3];
+        let mut b_vec: Vec<u32> = vec![4, 3, 5, 3, 9, 3];
+        assert_eq!(compute_distance(&mut a_vec, &mut b_vec), 11);
     }
 
     #[test]
