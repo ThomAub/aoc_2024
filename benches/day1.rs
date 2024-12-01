@@ -1,5 +1,6 @@
 use aoc_2024::day1::{part1, part2};
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
+use pprof::criterion::{Output, PProfProfiler};
 
 pub fn criterion_benchmark(c: &mut Criterion) {
     let input = match std::env::var("AOC_INPUT_DAY01") {
@@ -12,5 +13,10 @@ pub fn criterion_benchmark(c: &mut Criterion) {
     c.bench_function("part2", |b| b.iter(|| part2(black_box(input))));
 }
 
-criterion_group!(benches, criterion_benchmark);
+criterion_group!(
+    name = benches;
+    config = Criterion::default().with_profiler(
+        PProfProfiler::new(100, Output::Flamegraph(None)));
+    targets = criterion_benchmark
+);
 criterion_main!(benches);

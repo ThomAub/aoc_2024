@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use aoc_runner_derive::aoc;
 
+// starting with flamegraph
 fn parse_input(input: &str) -> (Vec<u32>, Vec<u32>) {
     input
         .split('\n')
