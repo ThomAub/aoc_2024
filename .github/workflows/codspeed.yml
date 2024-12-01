@@ -24,7 +24,10 @@ jobs:
           bins: cargo-codspeed
 
       - name: Build the benchmark target(s)
-        run: cargo codspeed build
+        uses: CodSpeedHQ/action@v3
+        with:
+          run: cargo codspeed build
+          aoc_input_day01: ${{ secrets.AOC_INPUT_DAY01 }}
 
       - name: Run the benchmarks
         uses: CodSpeedHQ/action@v3
