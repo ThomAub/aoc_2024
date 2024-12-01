@@ -31,3 +31,4 @@ jobs:
         with:
           run: cargo codspeed run
           token: ${{ secrets.CODSPEED_TOKEN }}
+          aoc_input_day01: ${{ secrets.AOC_INPUT_DAY01 }}
